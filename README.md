@@ -2,6 +2,8 @@
 
 A learning MVP: find a ticker, choose two **report years**, extract Business (Item 1) and Risk Factors (Item 1A), and display grounded paragraph differences. React + TypeScript handles the interface; FastAPI handles SEC requests and analysis. No AI, API keys, database, authentication, or investment scoring.
 
+See [the real public-filing example](docs/public-filing-example.md) for verified Apple 2024/2025 SEC links and a guided manual comparison.
+
 ## Repository map
 
 ```text
