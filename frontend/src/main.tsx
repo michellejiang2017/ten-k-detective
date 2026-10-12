@@ -6,7 +6,14 @@ type Discovery = {mode:string;company:{name:string;ticker:string;cik:string};fil
 type Evidence = {paragraph:number;text:string};
 type Result = {mode:string;before:Filing;after:Filing;changes:{kind:string;before:Evidence[];after:Evidence[]}[];method:string;warning:string};
 async function get<T>(url:string):Promise<T> {
-  const response = await fetch(url);
+  const staticDemo = (import.meta as unknown as {env:Record<string,string>}).env.VITE_STATIC_DEMO === 'true';
+  let requestUrl = url;
+  if (staticDemo) {
+    const path = url.split('?')[0];
+    if (!path.endsWith('/DEMO')) throw new Error('The hosted demo supports only DEMO. Run the FastAPI backend locally for live SEC mode.');
+    requestUrl = path.startsWith('/api/companies/') ? './demo/company.json' : './demo/comparison.json';
+  }
+  const response = await fetch(requestUrl);
   const data = await response.json();
   if (!response.ok) throw new Error(typeof data.detail === 'string' ? data.detail : 'Invalid request. Check your ticker and selected years.');
   return data;

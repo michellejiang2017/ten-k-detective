@@ -4,6 +4,10 @@ A learning MVP: find a ticker, choose two **report years**, extract Business (It
 
 See [the real public-filing example](docs/public-filing-example.md) for verified Apple 2024/2025 SEC links and a guided manual comparison.
 
+## Public GitHub Pages demo
+
+The Pages deployment hosts the React interface with exported **synthetic DEMO data**, not a running FastAPI server. It supports the 2024/2025 example and source documents. Live ticker lookup and SEC downloads require the backend described below. The Pages workflow generates fixture responses, builds with `VITE_STATIC_DEMO=true`, and deploys after each push to main. Local development continues to use the real API routes.
+
 ## Repository map
 
 ```text
