@@ -7,7 +7,7 @@ from .sec import sec, SecError
 from .extract import extract_sections, compare
 
 app = FastAPI(title='10-K Detective')
-app.add_middleware(CORSMiddleware, allow_origins=['http://localhost:5173'], allow_methods=['GET'])
+app.add_middleware(CORSMiddleware, allow_origins=os.getenv('CORS_ORIGINS', 'http://localhost:5173,http://127.0.0.1:5173').split(','), allow_methods=['GET'])
 FIXTURES = Path(__file__).parent.parent / 'fixtures'
 
 def mode():

@@ -13,7 +13,8 @@ async function get<T>(url:string):Promise<T> {
     if (!path.endsWith('/DEMO')) throw new Error('The hosted demo supports only DEMO. Run the FastAPI backend locally for live SEC mode.');
     requestUrl = path.startsWith('/api/companies/') ? './demo/company.json' : './demo/comparison.json';
   }
-  const response = await fetch(requestUrl);
+  const apiBase = (import.meta as unknown as {env:Record<string,string>}).env.VITE_API_BASE_URL || '';
+  const response = await fetch(staticDemo ? requestUrl : apiBase + requestUrl);
   const data = await response.json();
   if (!response.ok) throw new Error(typeof data.detail === 'string' ? data.detail : 'Invalid request. Check your ticker and selected years.');
   return data;

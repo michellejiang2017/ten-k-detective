@@ -59,6 +59,12 @@ On macOS/Linux use `python3`, `.venv/bin/python`, and `export DATA_MODE=mock`.
 
 ## Live SEC mode
 
+## Hosted FastAPI backend (Render)
+
+`render.yaml` defines one free Python web service, one worker, a health check, mock mode, and CORS for this GitHub Pages origin. Import this repository as a Render Blueprint. Free instances can sleep when idle, so the first request may be slow. The frontend supports `VITE_API_BASE_URL` for a hosted API; disable `VITE_STATIC_DEMO` when connecting it. Set a real SEC identity through Render environment settings before enabling live mode; never commit that value.
+
+## Live SEC mode
+
 Mock mode is the default and never contacts SEC. Do not mistake synthetic evidence for real disclosures. No SEC identity is supplied by default and live API access has **not** been established for this user's identity.
 
 Set a real descriptive application/contact identity in the backend terminal and restart:

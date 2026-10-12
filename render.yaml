@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: ten-k-detective-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT --workers 1
+    healthCheckPath: /api/health
+    envVars:
+      - key: DATA_MODE
+        value: mock
+      - key: CORS_ORIGINS
+        value: https://michellejiang2017.github.io
+      - key: PYTHON_VERSION
+        value: 3.12.10
