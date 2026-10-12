@@ -57,8 +57,6 @@ On macOS/Linux use `python3`, `.venv/bin/python`, and `export DATA_MODE=mock`.
 4. Follow `compare`: Python's SequenceMatcher aligns normalized paragraphs. Insert/delete/replace groups retain exact extracted text and paragraph positions on each side. A reordered paragraph may appear removed and added. Paragraph numbers refer to extraction, not SEC page numbers.
 5. Read `main.tsx`: state tracks discovery, year selection, pending requests, errors, and comparison results. React renders text safely and links each excerpt to its source document.
 
-## Live SEC mode
-
 ## Hosted FastAPI backend (Render)
 
 `render.yaml` defines one free Python web service, one worker, a health check, mock mode, and CORS for this GitHub Pages origin. Import this repository as a Render Blueprint. Free instances can sleep when idle, so the first request may be slow. The frontend supports `VITE_API_BASE_URL` for a hosted API; disable `VITE_STATIC_DEMO` when connecting it. Set a real SEC identity through Render environment settings before enabling live mode; never commit that value.
