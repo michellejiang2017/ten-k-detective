@@ -29,7 +29,8 @@ jobs:
       - run: npm ci && npm run build
         working-directory: frontend
         env:
-          VITE_STATIC_DEMO: 'true'
+          VITE_STATIC_DEMO: 'false'
+          VITE_API_BASE_URL: 'https://ten-k-detective-api.onrender.com'
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

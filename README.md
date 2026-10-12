@@ -6,7 +6,7 @@ See [the real public-filing example](docs/public-filing-example.md) for verified
 
 ## Public GitHub Pages demo
 
-The Pages deployment hosts the React interface with exported **synthetic DEMO data**, not a running FastAPI server. It supports the 2024/2025 example and source documents. Live ticker lookup and SEC downloads require the backend described below. The Pages workflow generates fixture responses, builds with `VITE_STATIC_DEMO=true`, and deploys after each push to main. Local development continues to use the real API routes.
+The Pages deployment hosts the React interface and calls the hosted FastAPI backend at https://ten-k-detective-api.onrender.com. The backend currently uses **synthetic DEMO data**. It supports the 2024/2025 example and source documents. Live SEC mode still requires configuration and verification. Pushes to main deploy the frontend; backend source changes trigger Render deployment. The optional `VITE_STATIC_DEMO=true` build retains a server-free fixture demo. Local development uses the Vite API proxy.
 
 ## Repository map
 

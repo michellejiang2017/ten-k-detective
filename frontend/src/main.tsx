@@ -17,6 +17,12 @@ async function get<T>(url:string):Promise<T> {
   const response = await fetch(staticDemo ? requestUrl : apiBase + requestUrl);
   const data = await response.json();
   if (!response.ok) throw new Error(typeof data.detail === 'string' ? data.detail : 'Invalid request. Check your ticker and selected years.');
+  if (!staticDemo && apiBase) {
+    const filings = [...(data.filings || []), data.before, data.after].filter(Boolean);
+    for (const filing of filings) {
+      if (filing.url.startsWith('/')) filing.url = apiBase + filing.url;
+    }
+  }
   return data;
 }
 function App(){
@@ -38,7 +44,7 @@ function App(){
   return <main><header><span>FILING EVIDENCE · MVP 01</span><h1>10-K Detective</h1><p>See how a company's risk disclosures changed between two annual reports.</p></header>
     <form onSubmit={lookup}><label>Ticker <input value={ticker} onChange={e=>setTicker(e.target.value)} disabled={busy} required maxLength={20}/></label><button disabled={busy}>Find 10-Ks</button></form>
     <p className="hint">Local mock mode uses DEMO, a fictional company. Live mode requires backend configuration.</p>
-    {busy&&<p role="status">Loading filing evidence…</p>}{error&&<p role="alert" className="error">{error}</p>}
+    {busy&&<p role="status">Loading filing evidence… The free backend may take about a minute to wake up.</p>}{error&&<p role="alert" className="error">{error}</p>}
     {discovery&&<section><h2>{discovery.company.name}</h2><p className="badge">{discovery.mode==='mock'?'SYNTHETIC DEMO DATA':'LIVE SEC DATA'} · CIK {discovery.company.cik}</p>
       <div className="controls"><label>Earlier report year<select value={before} onChange={e=>{setBefore(e.target.value);setResult(null);}} disabled={busy}><option value="">Choose year</option>{discovery.filings.map(f=><option key={f.year}>{f.year}</option>)}</select></label>
       <label>Later report year<select value={after} onChange={e=>{setAfter(e.target.value);setResult(null);}} disabled={busy}><option value="">Choose year</option>{discovery.filings.map(f=><option key={f.year}>{f.year}</option>)}</select></label>
